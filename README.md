@@ -3,7 +3,7 @@
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
-A Very Good Project created by Very Good CLI.
+An advanced variable useful to define your different state for State Management.
 
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
