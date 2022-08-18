@@ -8,6 +8,14 @@ class SxString extends StateVariable<String> {
   ///
   const SxString({required super.value, super.status, super.error});
 
+  factory SxString.fromMap(Map<String, dynamic> json) {
+    return SxString(
+      value: json['value'] as String,
+      status: Status.values[json['status'] as int],
+      error: json['error'] as String?,
+    );
+  }
+
   @override
   StateVariable<String> fromJson(Map<String, dynamic> json) {
     return SxString(
