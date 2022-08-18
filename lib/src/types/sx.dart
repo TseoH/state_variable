@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 import 'package:state_variable/src/enums/enums.dart';
+import 'package:state_variable/src/helpers/helpers.dart';
 import 'package:state_variable/src/state_variable.dart';
 
 class Sx<T> extends StateVariable<T> {
@@ -11,7 +12,7 @@ class Sx<T> extends StateVariable<T> {
 
   factory Sx.fromMap(Map<String, dynamic> json) {
     return Sx(
-      value: json['value'] as T,
+      value: getTFromJson<T>(json['value'] as Map<String, dynamic>),
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
     );
