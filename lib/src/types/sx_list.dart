@@ -8,6 +8,14 @@ class SxList<T> extends StateVariable<List<T>> {
   ///
   const SxList({required super.value, super.status, super.error});
 
+  factory SxList.fromMap(Map<String, dynamic> json) {
+    return SxList(
+      value: json['value'] as List<T>,
+      status: Status.values[json['status'] as int],
+      error: json['error'] as String?,
+    );
+  }
+
   @override
   StateVariable<List<T>> fromJson(Map<String, dynamic> json) {
     return SxList<T>(
