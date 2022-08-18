@@ -9,6 +9,14 @@ class Sx<T> extends StateVariable<T> {
   ///
   const Sx({required super.value, super.status, super.error});
 
+  factory Sx.fromMap(Map<String, dynamic> json) {
+    return Sx(
+      value: json['value'] as T,
+      status: Status.values[json['status'] as int],
+      error: json['error'] as String?,
+    );
+  }
+
   T _fromJson(Map<String, dynamic> json) {
     final onThrow = UnimplementedError('$runtimeType need to implement '
         'a factory or method with exact name like fromJson or fromMap');
