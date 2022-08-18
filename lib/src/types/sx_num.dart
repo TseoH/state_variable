@@ -8,6 +8,14 @@ class SxNum extends StateVariable<num> {
   ///
   const SxNum({required super.value, super.status, super.error});
 
+  factory SxNum.fromMap(Map<String, dynamic> json) {
+    return SxNum(
+      value: json['value'] as num,
+      status: Status.values[json['status'] as int],
+      error: json['error'] as String?,
+    );
+  }
+
   @override
   StateVariable<num> fromJson(Map<String, dynamic> json) {
     return SxNum(
