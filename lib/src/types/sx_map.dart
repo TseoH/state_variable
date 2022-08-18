@@ -17,20 +17,6 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   }
 
   @override
-  StateVariable<Map<T, P>> fromJson(Map<String, dynamic> json) {
-    return SxMap<T, P>(
-      value: json['value'] as Map<T, P>,
-      status: Status.values[json['status'] as int],
-      error: json['error'] as String,
-    );
-  }
-
-  @override
-  StateVariable<Map<T, P>> fromMap(Map<String, dynamic> map) {
-    return fromJson(map);
-  }
-
-  @override
   Map<String, dynamic> toJson() {
     return {
       'value': value,

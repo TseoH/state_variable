@@ -17,20 +17,6 @@ class SxDouble extends StateVariable<double> {
   }
 
   @override
-  StateVariable<double> fromJson(Map<String, dynamic> json) {
-    return SxDouble(
-      value: json['value'] as double,
-      status: Status.values[json['status'] as int],
-      error: json['error'] as String,
-    );
-  }
-
-  @override
-  StateVariable<double> fromMap(Map<String, dynamic> map) {
-    return fromJson(map);
-  }
-
-  @override
   Map<String, dynamic> toJson() {
     return {
       'value': value,

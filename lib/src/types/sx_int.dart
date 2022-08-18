@@ -92,7 +92,4 @@ class SxInt extends StateVariable<int> {
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }
-
-  @override
-  List<Object?> get props => super.props;
 }

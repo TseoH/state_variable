@@ -8,65 +8,35 @@ import 'package:state_variable/src/state_variable.dart';
 
 class Sx<T> extends StateVariable<T> {
   ///
-  const Sx({required super.value, super.status, super.error});
+  const Sx({
+    required super.value,
+    super.status,
+    super.error,
+  });
 
-  factory Sx.fromMap(Map<String, dynamic> json) {
+  factory Sx.fromJson(
+    Map<String, dynamic> json, {
+    required T Function(JsonMap json) decoder,
+  }) {
     return Sx(
-      value: getTFromJson<T>(json['value'] as Map<String, dynamic>),
-      status: Status.values[json['status'] as int],
-      error: json['error'] as String?,
-    );
-  }
-
-  T _fromJson(Map<String, dynamic> json) {
-    final onThrow = UnimplementedError('$runtimeType need to implement '
-        'a factory or method with exact name like fromJson or fromMap');
-    final data = json['value'] as Map<String, dynamic>;
-    try {
-      return (T as dynamic).fromJson(data) as T;
-    } catch (_) {
-      try {
-        return (T as dynamic).fromMap(data) as T;
-      } catch (_) {
-        try {
-          return (this as dynamic).fromJson(data) as T;
-        } catch (_) {
-          try {
-            return (this as dynamic).fromMap(data) as T;
-          } catch (_) {
-            throw onThrow;
-          }
-        }
-      }
-    }
-  }
-
-  @override
-  StateVariable<T> fromJson(Map<String, dynamic> json) {
-    return Sx(
-      value: _fromJson(json),
+      value: decoder(json['value'] as JsonMap),
       status: Status.values[json['status'] as int],
       error: json['error'] as String,
     );
   }
 
   @override
-  StateVariable<T> fromMap(Map<String, dynamic> map) {
-    return fromJson(map);
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({JsonMap Function()? encoder}) {
     return {
-      'value': value,
+      'value': encoder ?? (value as dynamic).toJson(),
       'error': error ?? '',
       'status': status.index,
     };
   }
 
   @override
-  Map<String, dynamic> toMap() {
-    return toJson();
+  Map<String, dynamic> toMap({JsonMap Function()? encoder}) {
+    return toJson(encoder: encoder);
   }
 
   @override
@@ -112,7 +82,7 @@ class Sx<T> extends StateVariable<T> {
   @override
   String toString() {
     return 'StateVariable('
-        'status: $this.status, '
+        'status: $status, '
         'value: $value, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';

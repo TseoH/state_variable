@@ -59,12 +59,6 @@ abstract class StateVariable<T> extends Equatable {
   String toStringJson();
 
   ///
-  StateVariable<T> fromMap(Map<String, dynamic> map);
-
-  ///
-  StateVariable<T> fromJson(Map<String, dynamic> json);
-
-  ///
   StateVariable<T> toInitial([T? value]);
 
   ///
@@ -78,15 +72,6 @@ abstract class StateVariable<T> extends Equatable {
 
   ///
   StateVariable<T> toFailed([T? value, String? errorMessage]);
-
-  @override
-  String toString() {
-    return 'StateVariable('
-        'status: $_status, '
-        'value: $value, '
-        'hasError:'
-        '${(error != null && (error?.isNotEmpty)!) || isFailed})';
-  }
 
   @override
   List<Object?> get props => [_status, _value, _error];

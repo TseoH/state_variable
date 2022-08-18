@@ -17,20 +17,6 @@ class SxNum extends StateVariable<num> {
   }
 
   @override
-  StateVariable<num> fromJson(Map<String, dynamic> json) {
-    return SxNum(
-      value: json['value'] as num,
-      status: Status.values[json['status'] as int],
-      error: json['error'] as String,
-    );
-  }
-
-  @override
-  StateVariable<num> fromMap(Map<String, dynamic> map) {
-    return fromJson(map);
-  }
-
-  @override
   Map<String, dynamic> toJson() {
     return {
       'value': value,

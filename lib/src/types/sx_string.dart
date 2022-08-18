@@ -17,20 +17,6 @@ class SxString extends StateVariable<String> {
   }
 
   @override
-  StateVariable<String> fromJson(Map<String, dynamic> json) {
-    return SxString(
-      value: json['value'] as String,
-      status: Status.values[json['status'] as int],
-      error: json['error'] as String,
-    );
-  }
-
-  @override
-  StateVariable<String> fromMap(Map<String, dynamic> map) {
-    return fromJson(map);
-  }
-
-  @override
   Map<String, dynamic> toJson() {
     return {
       'value': value,
