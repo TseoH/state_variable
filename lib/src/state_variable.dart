@@ -9,16 +9,22 @@ import 'package:state_variable/src/enums/enums.dart';
 class StateVariable<T> extends Equatable {
   /// {@macro state_variable}
   const StateVariable({
+    String? error,
     Status status = Status.initial,
     required T value,
   })  : _status = status,
-        _value = value;
+        _value = value,
+        _error = error;
 
   final Status _status;
   final T _value;
+  final String? _error;
 
   ///
   T get value => _value;
+
+  ///
+  String? get error => _error;
 
   ///
   Status get status => _status;
@@ -44,16 +50,20 @@ class StateVariable<T> extends Equatable {
   StateVariable<T> copyWith({
     Status? status,
     T? value,
+    String? error,
   }) {
     return StateVariable<T>(
       status: status ?? _status,
       value: value ?? _value,
+      error: error ?? _error,
     );
   }
 
   @override
   String toString() {
-    return 'StateVariable{status: $_status, value: $_value}';
+    return 'StateVariable{status: $_status, '
+        'value: $_value, '
+        'hasError: ${_error != null && (_error?.isNotEmpty)!}';
   }
 
   @override
@@ -120,7 +130,10 @@ extension StateVariableExtension<T> on StateVariable<T> {
       );
 
   ///
-  StateVariable<T> toFailed([T? value]) => StateVariable<T>(
+  StateVariable<T> toFailed([
+    T? value,
+  ]) =>
+      StateVariable<T>(
         value: value ?? _value,
         status: Status.failed,
       );
