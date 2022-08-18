@@ -5,7 +5,19 @@ import 'package:test/test.dart';
 void main() {
   group('StateVariable', () {
     test('can be instantiated', () {
-      expect(StateVariable(value: 0), isNotNull);
+      const __ = {
+        'String': 'anm',
+        'value': 1,
+        'nullable': null,
+        'mapa': {'is': true}
+      };
+      final mapx = SxMap(
+        value: __,
+      );
+      expect(
+        mapx.value,
+        __,
+      );
     });
   });
 }
