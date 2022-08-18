@@ -8,6 +8,14 @@ class SxDouble extends StateVariable<double> {
   ///
   const SxDouble({required super.value, super.status, super.error});
 
+  factory SxDouble.fromMap(Map<String, dynamic> json) {
+    return SxDouble(
+      value: json['value'] as double,
+      status: Status.values[json['status'] as int],
+      error: json['error'] as String?,
+    );
+  }
+
   @override
   StateVariable<double> fromJson(Map<String, dynamic> json) {
     return SxDouble(
