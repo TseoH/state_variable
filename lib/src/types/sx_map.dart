@@ -8,6 +8,14 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   ///
   const SxMap({required super.value, super.status, super.error});
 
+  factory SxMap.fromMap(Map<String, dynamic> json) {
+    return SxMap(
+      value: json['value'] as Map<T, P>,
+      status: Status.values[json['status'] as int],
+      error: json['error'] as String?,
+    );
+  }
+
   @override
   StateVariable<Map<T, P>> fromJson(Map<String, dynamic> json) {
     return SxMap<T, P>(
