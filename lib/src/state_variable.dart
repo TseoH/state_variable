@@ -61,13 +61,15 @@ class StateVariable<T> extends Equatable {
 
   @override
   String toString() {
-    return 'StateVariable{status: $_status, '
+    return 'StateVariable('
+        'status: $_status, '
         'value: $_value, '
-        'hasError: ${_error != null && (_error?.isNotEmpty)!}';
+        'hasError: '
+        '${(_error != null && (_error?.isNotEmpty)!) || _status.isFailed})';
   }
 
   @override
-  List<Object?> get props => [_status, _value];
+  List<Object?> get props => [_status, _value, _error];
 }
 
 //Type
