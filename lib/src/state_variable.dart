@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:state_variable/src/enums/enums.dart';
 
 ///
-class StateVariable<T> extends Equatable {
+abstract class StateVariable<T> extends Equatable {
   /// {@macro state_variable}
   const StateVariable({
     String? error,
@@ -47,49 +47,50 @@ class StateVariable<T> extends Equatable {
 
   //
   ///
-  StateVariable<T> copyWith({
-    Status? status,
-    T? value,
-    String? error,
-  }) {
-    return StateVariable<T>(
-      status: status ?? _status,
-      value: value ?? _value,
-      error: error ?? _error,
-    );
-  }
+  // StateVariable<T> copyWith({Status? status, T? value, String? error});
+
+  ///
+  Map<String, dynamic> toJson();
+
+  ///
+  Map<String, dynamic> toMap();
+
+  ///
+  String toStringJson();
+
+  ///
+  StateVariable<T> fromMap(Map<String, dynamic> map);
+
+  ///
+  StateVariable<T> fromJson(Map<String, dynamic> json);
+
+  ///
+  StateVariable<T> toInitial([T? value]);
+
+  ///
+  StateVariable<T> toLoading([T? value]);
+
+  ///
+  StateVariable<T> toRefreshing([T? value]);
+
+  ///
+  StateVariable<T> toSuccess([T? value]);
+
+  ///
+  StateVariable<T> toFailed([T? value, String? errorMessage]);
 
   @override
   String toString() {
     return 'StateVariable('
         'status: $_status, '
-        'value: $_value, '
-        'hasError: '
-        '${(_error != null && (_error?.isNotEmpty)!) || _status.isFailed})';
+        'value: $value, '
+        'hasError:'
+        '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }
 
   @override
   List<Object?> get props => [_status, _value, _error];
 }
-
-//Type
-///
-typedef SvString = StateVariable<String>;
-
-///
-typedef SvInt = StateVariable<int>;
-
-///
-typedef SvDouble = StateVariable<double>;
-
-///
-typedef SvBool = StateVariable<bool>;
-
-///
-typedef SvList<T> = StateVariable<List<T>>;
-
-///
-typedef Sv<T> = StateVariable<T>;
 
 ///Extension
 extension StateVariableExtension<T> on StateVariable<T> {
@@ -107,66 +108,4 @@ extension StateVariableExtension<T> on StateVariable<T> {
 
   ///
   bool get isFailed => _status == Status.failed;
-
-  ///
-  StateVariable<T> toInitial([T? value]) => StateVariable<T>(
-        value: value ?? _value,
-      );
-
-  ///
-  StateVariable<T> toLoading([T? value]) => StateVariable<T>(
-        value: value ?? _value,
-        status: Status.loading,
-      );
-
-  ///
-  StateVariable<T> toRefreshing([T? value]) => StateVariable<T>(
-        value: value ?? _value,
-        status: Status.refresh,
-      );
-
-  ///
-  StateVariable<T> toSuccess([T? value]) => StateVariable<T>(
-        value: value ?? _value,
-        status: Status.success,
-      );
-
-  ///
-  StateVariable<T> toFailed([
-    T? value,
-  ]) =>
-      StateVariable<T>(
-        value: value ?? _value,
-        status: Status.failed,
-      );
-}
-
-///
-extension StateVariableStringExtension on String {
-  ///
-  SvString get sv => SvString(value: this);
-}
-
-///
-extension StateVariableIntExtension on int {
-  ///
-  SvInt get sv => SvInt(value: this);
-}
-
-///
-extension StateVariableDoubleExtension on double {
-  ///
-  SvDouble get sv => SvDouble(value: this);
-}
-
-///
-extension StateVariableBoolExtension on bool {
-  ///
-  SvBool get sv => SvBool(value: this);
-}
-
-///
-extension StateVariableObject<T> on T {
-  ///
-  Sv<T> get sv => Sv<T>(value: this);
 }
