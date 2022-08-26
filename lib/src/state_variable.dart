@@ -71,7 +71,7 @@ abstract class StateVariable<T> extends Equatable {
   StateVariable<T> toSuccess([T? value]);
 
   ///
-  StateVariable<T> toFailed([T? value, String? errorMessage]);
+  StateVariable<T> toFailed({T? value, String? errorMessage});
 
   @override
   List<Object?> get props => [_status, _value, _error];

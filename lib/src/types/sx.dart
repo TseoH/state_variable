@@ -73,7 +73,7 @@ class Sx<T> extends StateVariable<T> {
 
   ///
   @override
-  Sx<T> toFailed([T? value, String? errorMessage]) => Sx(
+  Sx<T> toFailed({T? value, String? errorMessage}) => Sx(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

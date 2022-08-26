@@ -64,7 +64,7 @@ class SxDouble extends StateVariable<double> {
 
   ///
   @override
-  SxDouble toFailed([double? value, String? errorMessage]) => SxDouble(
+  SxDouble toFailed({double? value, String? errorMessage}) => SxDouble(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

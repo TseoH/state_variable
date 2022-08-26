@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:state_variable/state_variable.dart';
 import 'package:test/test.dart';
@@ -26,7 +24,6 @@ class TestClass extends Equatable {
       'value': value,
       'isTest': isTest,
     };
-    print(data);
     return data;
   }
 

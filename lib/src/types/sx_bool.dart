@@ -64,7 +64,7 @@ class SxBool extends StateVariable<bool> {
 
   ///
   @override
-  SxBool toFailed([bool? value, String? errorMessage]) => SxBool(
+  SxBool toFailed({bool? value, String? errorMessage}) => SxBool(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

@@ -64,7 +64,7 @@ class SxInt extends StateVariable<int> {
 
   ///
   @override
-  SxInt toFailed([int? value, String? errorMessage]) => SxInt(
+  SxInt toFailed({int? value, String? errorMessage}) => SxInt(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

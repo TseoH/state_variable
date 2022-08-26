@@ -64,7 +64,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
 
   ///
   @override
-  SxMap<T, P> toFailed([Map<T, P>? value, String? errorMessage]) => SxMap<T, P>(
+  SxMap<T, P> toFailed({Map<T, P>? value, String? errorMessage}) => SxMap<T, P>(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

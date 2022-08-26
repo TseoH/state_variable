@@ -64,7 +64,7 @@ class SxList<T> extends StateVariable<List<T>> {
 
   ///
   @override
-  SxList<T> toFailed([List<T>? value, String? errorMessage]) => SxList<T>(
+  SxList<T> toFailed({List<T>? value, String? errorMessage}) => SxList<T>(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

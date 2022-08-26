@@ -64,7 +64,7 @@ class SxNum extends StateVariable<num> {
 
   ///
   @override
-  SxNum toFailed([num? value, String? errorMessage]) => SxNum(
+  SxNum toFailed({num? value, String? errorMessage}) => SxNum(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,

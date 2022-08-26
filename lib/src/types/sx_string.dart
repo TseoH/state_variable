@@ -64,7 +64,7 @@ class SxString extends StateVariable<String> {
 
   ///
   @override
-  SxString toFailed([String? value, String? errorMessage]) => SxString(
+  SxString toFailed({String? value, String? errorMessage}) => SxString(
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
