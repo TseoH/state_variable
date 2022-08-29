@@ -73,7 +73,7 @@ class SxString extends StateVariable<String> {
   @override
   String toString() {
     return 'StateVariable('
-        'status: $this.status, '
+        'status: $status, '
         'value: $value, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';

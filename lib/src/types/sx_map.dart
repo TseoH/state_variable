@@ -73,7 +73,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   @override
   String toString() {
     return 'StateVariable('
-        'status: $this.status, '
+        'status: $status, '
         'value: $value, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';

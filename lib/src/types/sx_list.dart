@@ -73,7 +73,7 @@ class SxList<T> extends StateVariable<List<T>> {
   @override
   String toString() {
     return 'StateVariable('
-        'status: $this.status, '
+        'status: $status, '
         'value: $value, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
