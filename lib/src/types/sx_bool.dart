@@ -6,13 +6,19 @@ import 'package:state_variable/src/state_variable.dart';
 
 class SxBool extends StateVariable<bool> {
   ///
-  const SxBool({required super.value, super.status, super.error});
+  const SxBool({
+    required super.value,
+    super.status,
+    super.error,
+    super.updateAt,
+  });
 
   factory SxBool.fromMap(Map<String, dynamic> json) {
     return SxBool(
       value: json['value'] as bool,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
+      updateAt: json['updateAt'] as int?,
     );
   }
 
@@ -22,6 +28,7 @@ class SxBool extends StateVariable<bool> {
       'value': value,
       'error': error ?? '',
       'status': status.index,
+      'updateAt': updateAt,
     };
   }
 
@@ -46,6 +53,7 @@ class SxBool extends StateVariable<bool> {
   SxBool toLoading([bool? value]) => SxBool(
         value: value ?? this.value,
         status: Status.loading,
+        updateAt: updateAt,
       );
 
   ///
@@ -53,6 +61,7 @@ class SxBool extends StateVariable<bool> {
   SxBool toRefreshing([bool? value]) => SxBool(
         value: value ?? this.value,
         status: Status.refresh,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -60,6 +69,7 @@ class SxBool extends StateVariable<bool> {
   SxBool toSuccess([bool? value]) => SxBool(
         value: value ?? this.value,
         status: Status.success,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -68,6 +78,7 @@ class SxBool extends StateVariable<bool> {
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
+        updateAt: updateAt,
       );
 
   @override
@@ -75,6 +86,7 @@ class SxBool extends StateVariable<bool> {
     return 'StateVariable('
         'status: $status, '
         'value: $value, '
+        'updateAt: $updateAt'
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }

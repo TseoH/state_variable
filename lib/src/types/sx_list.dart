@@ -6,13 +6,19 @@ import 'package:state_variable/src/state_variable.dart';
 
 class SxList<T> extends StateVariable<List<T>> {
   ///
-  const SxList({required super.value, super.status, super.error});
+  const SxList({
+    required super.value,
+    super.status,
+    super.error,
+    super.updateAt,
+  });
 
   factory SxList.fromMap(Map<String, dynamic> json) {
     return SxList(
       value: json['value'] as List<T>,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
+      updateAt: json['updateAt'] as int?,
     );
   }
 
@@ -22,6 +28,7 @@ class SxList<T> extends StateVariable<List<T>> {
       'value': value,
       'error': error ?? '',
       'status': status.index,
+      'updateAt': updateAt,
     };
   }
 
@@ -46,6 +53,7 @@ class SxList<T> extends StateVariable<List<T>> {
   SxList<T> toLoading([List<T>? value]) => SxList<T>(
         value: value ?? this.value,
         status: Status.loading,
+        updateAt: updateAt,
       );
 
   ///
@@ -53,6 +61,7 @@ class SxList<T> extends StateVariable<List<T>> {
   SxList<T> toRefreshing([List<T>? value]) => SxList<T>(
         value: value ?? this.value,
         status: Status.refresh,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -60,6 +69,7 @@ class SxList<T> extends StateVariable<List<T>> {
   SxList<T> toSuccess([List<T>? value]) => SxList<T>(
         value: value ?? this.value,
         status: Status.success,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -73,6 +83,7 @@ class SxList<T> extends StateVariable<List<T>> {
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
+        updateAt: updateAt,
       );
 
   @override
@@ -80,6 +91,7 @@ class SxList<T> extends StateVariable<List<T>> {
     return 'StateVariable('
         'status: $status, '
         'value: $value, '
+        'updateAt: $updateAt, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }

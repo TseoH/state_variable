@@ -6,13 +6,19 @@ import 'package:state_variable/src/state_variable.dart';
 
 class SxMap<T, P> extends StateVariable<Map<T, P>> {
   ///
-  const SxMap({required super.value, super.status, super.error});
+  const SxMap({
+    required super.value,
+    super.status,
+    super.error,
+    super.updateAt,
+  });
 
   factory SxMap.fromMap(Map<String, dynamic> json) {
     return SxMap(
       value: json['value'] as Map<T, P>,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
+      updateAt: json['updateAt'] as int?,
     );
   }
 
@@ -27,6 +33,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
       'value': value,
       'error': error ?? '',
       'status': status.index,
+      'updateAt': updateAt,
     };
   }
 
@@ -46,6 +53,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   SxMap<T, P> toLoading([Map<T, P>? value]) => SxMap<T, P>(
         value: value ?? this.value,
         status: Status.loading,
+        updateAt: updateAt,
       );
 
   ///
@@ -53,6 +61,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   SxMap<T, P> toRefreshing([Map<T, P>? value]) => SxMap<T, P>(
         value: value ?? this.value,
         status: Status.refresh,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -60,6 +69,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   SxMap<T, P> toSuccess([Map<T, P>? value]) => SxMap<T, P>(
         value: value ?? this.value,
         status: Status.success,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -73,6 +83,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
+        updateAt: updateAt,
       );
 
   @override
@@ -80,6 +91,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
     return 'StateVariable('
         'status: $status, '
         'value: $value, '
+        'updateAt: $updateAt, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }

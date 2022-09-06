@@ -6,13 +6,19 @@ import 'package:state_variable/src/state_variable.dart';
 
 class SxDouble extends StateVariable<double> {
   ///
-  const SxDouble({required super.value, super.status, super.error});
+  const SxDouble({
+    required super.value,
+    super.status,
+    super.error,
+    super.updateAt,
+  });
 
   factory SxDouble.fromMap(Map<String, dynamic> json) {
     return SxDouble(
       value: json['value'] as double,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
+      updateAt: json['updateAt'] as int?,
     );
   }
 
@@ -22,6 +28,7 @@ class SxDouble extends StateVariable<double> {
       'value': value,
       'error': error ?? '',
       'status': status.index,
+      'updateAt': updateAt,
     };
   }
 
@@ -46,6 +53,7 @@ class SxDouble extends StateVariable<double> {
   SxDouble toLoading([double? value]) => SxDouble(
         value: value ?? this.value,
         status: Status.loading,
+        updateAt: updateAt,
       );
 
   ///
@@ -53,6 +61,7 @@ class SxDouble extends StateVariable<double> {
   SxDouble toRefreshing([double? value]) => SxDouble(
         value: value ?? this.value,
         status: Status.refresh,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -60,6 +69,7 @@ class SxDouble extends StateVariable<double> {
   SxDouble toSuccess([double? value]) => SxDouble(
         value: value ?? this.value,
         status: Status.success,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -68,6 +78,7 @@ class SxDouble extends StateVariable<double> {
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
+        updateAt: updateAt,
       );
 
   @override
@@ -75,6 +86,7 @@ class SxDouble extends StateVariable<double> {
     return 'StateVariable('
         'status: $status, '
         'value: $value, '
+        'updateAt: $updateAt, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }

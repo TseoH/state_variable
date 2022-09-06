@@ -12,6 +12,7 @@ class Sx<T> extends StateVariable<T> {
     required super.value,
     super.status,
     super.error,
+    super.updateAt,
   });
 
   factory Sx.fromJson(
@@ -22,6 +23,7 @@ class Sx<T> extends StateVariable<T> {
       value: decoder(json['value'] as JsonMap),
       status: Status.values[json['status'] as int],
       error: json['error'] as String,
+      updateAt: json['updateAt'] as int?,
     );
   }
 
@@ -31,6 +33,7 @@ class Sx<T> extends StateVariable<T> {
       'value': encoder ?? (value as dynamic).toJson(),
       'error': error ?? '',
       'status': status.index,
+      'updateAt': updateAt,
     };
   }
 
@@ -55,6 +58,7 @@ class Sx<T> extends StateVariable<T> {
   Sx<T> toLoading([T? value]) => Sx(
         value: value ?? this.value,
         status: Status.loading,
+        updateAt: updateAt,
       );
 
   ///
@@ -62,6 +66,7 @@ class Sx<T> extends StateVariable<T> {
   Sx<T> toRefreshing([T? value]) => Sx(
         value: value ?? this.value,
         status: Status.refresh,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -69,6 +74,7 @@ class Sx<T> extends StateVariable<T> {
   Sx<T> toSuccess([T? value]) => Sx(
         value: value ?? this.value,
         status: Status.success,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -77,6 +83,7 @@ class Sx<T> extends StateVariable<T> {
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
+        updateAt: updateAt,
       );
 
   @override
@@ -84,6 +91,7 @@ class Sx<T> extends StateVariable<T> {
     return 'StateVariable('
         'status: $status, '
         'value: $value, '
+        'updateAt: $updateAt, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }

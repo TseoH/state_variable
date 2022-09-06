@@ -11,14 +11,17 @@ abstract class StateVariable<T> extends Equatable {
   const StateVariable({
     String? error,
     Status status = Status.initial,
+    int? updateAt,
     required T value,
   })  : _status = status,
         _value = value,
+        _updateAt = updateAt,
         _error = error;
 
   final Status _status;
   final T _value;
   final String? _error;
+  final int? _updateAt;
 
   ///
   T get value => _value;
@@ -28,6 +31,10 @@ abstract class StateVariable<T> extends Equatable {
 
   ///
   Status get status => _status;
+
+  ///Return the last (datetime as millisecondsSinceEpoch) value has been updated
+  ///has success or refresh.
+  int? get updateAt => _updateAt;
 
   ///
   String get getDynamicValue {
@@ -74,7 +81,7 @@ abstract class StateVariable<T> extends Equatable {
   StateVariable<T> toFailed({T? value, String? errorMessage});
 
   @override
-  List<Object?> get props => [_status, _value, _error];
+  List<Object?> get props => [_status, _value, _error, _updateAt];
 }
 
 ///Extension

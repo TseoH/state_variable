@@ -1,18 +1,23 @@
 // ignore_for_file: public_member_api_docs
-
 import 'dart:convert';
 import 'package:state_variable/src/enums/enums.dart';
 import 'package:state_variable/src/state_variable.dart';
 
 class SxNum extends StateVariable<num> {
   ///
-  const SxNum({required super.value, super.status, super.error});
+  const SxNum({
+    required super.value,
+    super.status,
+    super.error,
+    super.updateAt,
+  });
 
   factory SxNum.fromMap(Map<String, dynamic> json) {
     return SxNum(
       value: json['value'] as num,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
+      updateAt: json['updateAt'] as int?,
     );
   }
 
@@ -22,6 +27,7 @@ class SxNum extends StateVariable<num> {
       'value': value,
       'error': error ?? '',
       'status': status.index,
+      'updateAt': updateAt,
     };
   }
 
@@ -46,6 +52,7 @@ class SxNum extends StateVariable<num> {
   SxNum toLoading([num? value]) => SxNum(
         value: value ?? this.value,
         status: Status.loading,
+        updateAt: updateAt,
       );
 
   ///
@@ -53,6 +60,7 @@ class SxNum extends StateVariable<num> {
   SxNum toRefreshing([num? value]) => SxNum(
         value: value ?? this.value,
         status: Status.refresh,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -60,6 +68,7 @@ class SxNum extends StateVariable<num> {
   SxNum toSuccess([num? value]) => SxNum(
         value: value ?? this.value,
         status: Status.success,
+        updateAt: DateTime.now().toUtc().millisecondsSinceEpoch,
       );
 
   ///
@@ -68,6 +77,7 @@ class SxNum extends StateVariable<num> {
         value: value ?? this.value,
         status: Status.failed,
         error: errorMessage,
+        updateAt: updateAt,
       );
 
   @override
@@ -75,6 +85,7 @@ class SxNum extends StateVariable<num> {
     return 'StateVariable('
         'status: $status, '
         'value: $value, '
+        'updateAt: $updateAt, '
         'hasError:'
         '${(error != null && (error?.isNotEmpty)!) || isFailed})';
   }
