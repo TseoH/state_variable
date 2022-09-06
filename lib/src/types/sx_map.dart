@@ -18,16 +18,16 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
 
   @override
   Map<String, dynamic> toJson() {
+    return toMap();
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
     return {
       'value': value,
       'error': error ?? '',
       'status': status.index,
     };
-  }
-
-  @override
-  Map<String, dynamic> toMap() {
-    return toJson();
   }
 
   @override
@@ -60,6 +60,11 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   SxMap<T, P> toSuccess([Map<T, P>? value]) => SxMap<T, P>(
         value: value ?? this.value,
         status: Status.success,
+      );
+
+  ///
+  SxMap<T, P> clear([Map<T, P>? value]) => SxMap<T, P>(
+        value: value ?? {},
       );
 
   ///

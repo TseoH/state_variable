@@ -63,6 +63,11 @@ class SxList<T> extends StateVariable<List<T>> {
       );
 
   ///
+  SxList<T> clear([List<T>? value]) => SxList<T>(
+        value: value ?? [],
+      );
+
+  ///
   @override
   SxList<T> toFailed({List<T>? value, String? errorMessage}) => SxList<T>(
         value: value ?? this.value,
