@@ -40,9 +40,9 @@ void main() {
   group('StateVariable', () {
     test('can be instantiated', () {
       const mockTextClass = TestClass(value: 'Test', isTest: true);
-      final sv = Sx(
+      final sv = Sx<TestClass>(
         value: mockTextClass,
-      );
+      )..toInitial();
       expect(
         sv.value,
         mockTextClass,
@@ -67,6 +67,21 @@ void main() {
     test('SxString', () {
       final svString = SxString(value: 'Text');
       expect(svString.value, 'Text');
+    });
+  });
+
+  group('Equality', () {
+    test('Equality with == operator', () {
+      final one = SxInt(value: 0);
+      final two = SxInt(value: 0);
+      expect(one == two, true);
+    });
+    test('Equality with != operator', () {
+      const mockTextClass = TestClass(value: 'Test', isTest: true);
+      const mockTextClass2 = TestClass(value: 'Test1', isTest: true);
+      final value1 = Sx<TestClass>(value: mockTextClass);
+      final value2 = Sx<TestClass>(value: mockTextClass2);
+      expect(value1 != value2, true);
     });
   });
 }
