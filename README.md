@@ -33,3 +33,7 @@ and manage them healthily.
 ## Remove Equatable dependency
 
 ## Improve comment
+
+## Move to only type with Sx
+
+### mark other types (SxBool, SxString, SxInt etc...) as deprecated
