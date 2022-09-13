@@ -13,9 +13,13 @@ class SxList<T> extends StateVariable<List<T>> {
     super.updateAt,
   });
 
-  factory SxList.fromMap(Map<String, dynamic> json) {
+  factory SxList.fromMap(
+    Map<String, dynamic> json,
+    List<T> Function(dynamic value)? decoder,
+  ) {
     return SxList(
-      value: json['value'] as List<T>,
+      value:
+          decoder != null ? decoder(json['value']) : json['value'] as List<T>,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
       updateAt: json['updateAt'] as int?,
@@ -23,9 +27,9 @@ class SxList<T> extends StateVariable<List<T>> {
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({dynamic Function(List<T> value)? encoder}) {
     return {
-      'value': value,
+      'value': encoder != null ? encoder(value) : value,
       'error': error ?? '',
       'status': status.isLoading ? status.isInitial : status.index,
       'updateAt': updateAt,
@@ -33,8 +37,8 @@ class SxList<T> extends StateVariable<List<T>> {
   }
 
   @override
-  Map<String, dynamic> toMap() {
-    return toJson();
+  Map<String, dynamic> toMap({dynamic Function(List<T> value)? encoder}) {
+    return toJson(encoder: encoder);
   }
 
   @override

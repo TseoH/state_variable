@@ -13,9 +13,13 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
     super.updateAt,
   });
 
-  factory SxMap.fromMap(Map<String, dynamic> json) {
+  factory SxMap.fromMap(
+    Map<String, dynamic> json,
+    Map<T, P> Function(dynamic value)? decoder,
+  ) {
     return SxMap(
-      value: json['value'] as Map<T, P>,
+      value:
+          decoder != null ? decoder(json['value']) : json['value'] as Map<T, P>,
       status: Status.values[json['status'] as int],
       error: json['error'] as String?,
       updateAt: json['updateAt'] as int?,
@@ -23,14 +27,14 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   }
 
   @override
-  Map<String, dynamic> toJson() {
-    return toMap();
+  Map<String, dynamic> toJson({dynamic Function(Map<T, P> value)? encoder}) {
+    return toMap(encoder: encoder);
   }
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({dynamic Function(Map<T, P> value)? encoder}) {
     return {
-      'value': value,
+      'value': encoder != null ? encoder(value) : value,
       'error': error ?? '',
       'status': status.isLoading ? status.isInitial : status.index,
       'updateAt': updateAt,
@@ -38,8 +42,8 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   }
 
   @override
-  String toStringJson() {
-    return json.encode(toJson());
+  String toStringJson({dynamic Function(Map<T, P> value)? encoder}) {
+    return json.encode(toJson(encoder: encoder));
   }
 
   ///Return a [SxMap] with a status that

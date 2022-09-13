@@ -19,12 +19,14 @@ class Sx<T> extends StateVariable<T> {
   ///to set a new Sx from Map<String, dynamic> aka json.
   ///[decoder] is the fromJson or fromMap factory of your Object,
   ///example : Sx<TestClass>.fromJson(json, decoder: TestClass.fromJson).
+  ///The [decoder] expose a dynamic [value] that should be most of time
+  ///a Map<String, dynamic> or a List<Map<String, dynamic>>.
   factory Sx.fromJson(
     Map<String, dynamic> json, {
-    required T Function(JsonMap json) decoder,
+    required T Function(dynamic value) decoder,
   }) {
     return Sx(
-      value: decoder(json['value'] as JsonMap),
+      value: decoder(json['value']),
       status: Status.values[json['status'] as int],
       error: json['error'] as String,
       updateAt: json['updateAt'] as int?,
@@ -37,9 +39,9 @@ class Sx<T> extends StateVariable<T> {
   /// toJson method, otherwise an NoSuchMethodException will be
   /// throw.
   @override
-  Map<String, dynamic> toJson({JsonMap Function()? encoder}) {
+  Map<String, dynamic> toJson({dynamic Function(T value)? encoder}) {
     return {
-      'value': encoder ?? (value as dynamic).toJson(),
+      'value': encoder != null ? encoder(value) : (value as dynamic).toJson(),
       'error': error ?? '',
       'status': status.isLoading ? status.isInitial : status.index,
       'updateAt': updateAt,
@@ -48,12 +50,12 @@ class Sx<T> extends StateVariable<T> {
 
   ///Same as [toJson], just name preference
   @override
-  Map<String, dynamic> toMap({JsonMap Function()? encoder}) {
+  Map<String, dynamic> toMap({dynamic Function(T value)? encoder}) {
     return toJson(encoder: encoder);
   }
 
   @override
-  String toStringJson({JsonMap Function()? encoder}) {
+  String toStringJson({JsonMap Function(T value)? encoder}) {
     return json.encode(toJson(encoder: encoder));
   }
 
