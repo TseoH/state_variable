@@ -41,7 +41,7 @@ class Sx<T> extends StateVariable<T> {
     return {
       'value': encoder ?? (value as dynamic).toJson(),
       'error': error ?? '',
-      'status': status.index,
+      'status': status.isLoading ? status.isInitial : status.index,
       'updateAt': updateAt,
     };
   }

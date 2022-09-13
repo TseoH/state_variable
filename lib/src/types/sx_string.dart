@@ -27,7 +27,7 @@ class SxString extends StateVariable<String> {
     return {
       'value': value,
       'error': error ?? '',
-      'status': status.index,
+      'status': status.isLoading ? status.isInitial : status.index,
       'updateAt': updateAt,
     };
   }

@@ -26,7 +26,7 @@ class SxNum extends StateVariable<num> {
     return {
       'value': value,
       'error': error ?? '',
-      'status': status.index,
+      'status': status.isLoading ? status.isInitial : status.index,
       'updateAt': updateAt,
     };
   }
