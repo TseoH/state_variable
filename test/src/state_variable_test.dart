@@ -36,6 +36,9 @@ class TestClass extends Equatable {
   }
 }
 
+const mockTextClass = TestClass(value: 'Test', isTest: true);
+const mockTextClass2 = TestClass(value: 'Test1', isTest: true);
+
 void main() {
   group('StateVariable', () {
     test('can be instantiated', () {
@@ -77,8 +80,6 @@ void main() {
       expect(one == two, true);
     });
     test('Equality with != operator', () {
-      const mockTextClass = TestClass(value: 'Test', isTest: true);
-      const mockTextClass2 = TestClass(value: 'Test1', isTest: true);
       final value1 = Sx<TestClass>(value: mockTextClass);
       final value2 = Sx<TestClass>(value: mockTextClass2);
       expect(value1 != value2, true);
