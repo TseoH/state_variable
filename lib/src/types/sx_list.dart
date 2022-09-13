@@ -42,8 +42,8 @@ class SxList<T> extends StateVariable<List<T>> {
   }
 
   @override
-  String toStringJson() {
-    return json.encode(toJson());
+  String toStringJson({dynamic Function(List<T> value)? encoder}) {
+    return json.encode(toJson(encoder: encoder));
   }
 
   ///Return a [SxList] with a status that
