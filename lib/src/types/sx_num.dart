@@ -7,7 +7,7 @@ class SxNum extends StateVariable<num> {
   ///
   const SxNum({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });

@@ -8,7 +8,7 @@ class SxString extends StateVariable<String> {
   ///
   const SxString({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });

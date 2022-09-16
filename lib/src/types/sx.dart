@@ -10,7 +10,7 @@ class Sx<T> extends StateVariable<T> {
   ///
   const Sx({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });

@@ -8,7 +8,7 @@ class SxInt extends StateVariable<int> {
   ///
   const SxInt({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });

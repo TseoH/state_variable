@@ -8,7 +8,7 @@ class SxMap<T, P> extends StateVariable<Map<T, P>> {
   ///
   const SxMap({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });

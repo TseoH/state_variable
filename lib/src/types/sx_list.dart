@@ -8,7 +8,7 @@ class SxList<T> extends StateVariable<List<T>> {
   ///
   const SxList({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });

@@ -8,7 +8,7 @@ class SxStatus extends StateVariable<Status> {
   ///
   const SxStatus({
     required super.value,
-    super.status,
+    super.status = Status.initial,
     super.error,
     super.updateAt,
   });
