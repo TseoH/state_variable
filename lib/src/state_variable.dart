@@ -58,6 +58,21 @@ abstract class StateVariable<T> extends Equatable {
   }
 
   ///
+  bool get isInitial => status.isInitial;
+
+  ///
+  bool get isLoading => status.isLoading;
+
+  ///
+  bool get isRefreshing => status.isRefreshing;
+
+  ///
+  bool get isSucceeded => status.isSucceeded;
+
+  ///
+  bool get isFailed => status.isFailed;
+
+  ///
   Map<String, dynamic> toJson();
 
   ///
@@ -131,22 +146,4 @@ abstract class StateVariable<T> extends Equatable {
 
   @override
   List<Object?> get props => [_status, _value, _error, _updateAt];
-}
-
-///Extension
-extension StateVariableExtension<T> on StateVariable<T> {
-  ///
-  bool get isInitial => _status == Status.initial;
-
-  ///
-  bool get isLoading => _status == Status.loading;
-
-  ///
-  bool get isRefreshing => _status == Status.loading;
-
-  ///
-  bool get isSucceeded => _status == Status.success;
-
-  ///
-  bool get isFailed => _status == Status.failed;
 }
