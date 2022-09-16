@@ -58,19 +58,19 @@ abstract class StateVariable<T> extends Equatable {
   }
 
   ///
-  bool get isInitial => status.isInitial;
+  bool get isInitial => _status.isInitial;
 
   ///
-  bool get isLoading => status.isLoading;
+  bool get isLoading => _status.isLoading;
 
   ///
-  bool get isRefreshing => status.isRefreshing;
+  bool get isRefreshing => _status.isRefreshing;
 
   ///
-  bool get isSucceeded => status.isSucceeded;
+  bool get isSucceeded => _status.isSucceeded;
 
   ///
-  bool get isFailed => status.isFailed;
+  bool get isFailed => _status.isFailed;
 
   ///
   Map<String, dynamic> toJson();
